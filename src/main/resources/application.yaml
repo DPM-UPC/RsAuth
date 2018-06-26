@@ -1,0 +1,37 @@
+mybatis:
+  type-aliases-package: pe.edu.upc.RsAuth.mappers
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE}
+
+---
+
+spring:
+  profiles: dev
+name: dev-YAML
+environment: dev
+datasource:
+  driver-class-name: com.mysql.jdbc.Driver
+  jdbcUrl: jdbc:mysql://localhost:3306/dbappmobile?useSSL=false
+  username: root
+  password: root
+  maximumPoolSize: 5
+server:
+  port: 8081
+  servlet:
+    context-path: /
+banner: banner.txt
+
+---
+
+spring:
+  profiles: test
+name: test-YAML
+environment: test
+datasource:
+  driver-class-name: com.mysql.jdbc.Driver
+  jdbcUrl: jdbc:mysql://201.150.40.204/dbappmobile?useSSL=false
+  username: admin_auth
+  password: dpm-upc.2018
+  maximumPoolSize: 5
+banner: banner.txt

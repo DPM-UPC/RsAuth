@@ -1,0 +1,41 @@
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            SERVER: ${jboss.Name} [%5p] [%d{dd-MM-yyyy HH:mm:ss.SSS}] (%F:%L) - %m%n
+        </Property>
+    </Properties>
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+        <RollingFile name="Archivo">
+            <FileName>/javaLog/RsAuth/RsAuth.log</FileName>
+            <FilePattern>/javaLog/RsAuth/%d{yyyy-MM-dd-hh}-%i.log.zip</FilePattern>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="20 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="pe.edu.upc.RsAuth" level="debug" additivity="false">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="Archivo"/>
+        </Logger>
+
+        <Logger name="org.mybatis" level="DEBUG">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="Archivo"/>
+        </Logger>
+
+        <Logger name="java.sql" level="DEBUG">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="Archivo"/>
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="ConsoleAppender"/>
+            <AppenderRef ref="Archivo"/>
+        </Root>
+    </Loggers>
+</Configuration>

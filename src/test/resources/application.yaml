@@ -1,0 +1,10 @@
+mybatis:
+  type-aliases-package: pe.edu.upc.RsAuth.mappers
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/dbappmobile?useSSL=false
+    username: root
+    password: root
+banner: banner.txt
