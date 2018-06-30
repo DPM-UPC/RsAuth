@@ -13,8 +13,8 @@ import java.util.List;
 @Component
 public interface AccessSecurityMapper {
 
-    @Insert("insert into access_security (password, start_date, final_date, state, creation_date) " +
-            "values(#{password},now(),date_add(now(), INTERVAL 30 DAY), 1, now())")
+    @Insert("insert into access_security (password, start_date, final_date, state, creation_date, user_id_fk) " +
+            "values(#{password},now(),date_add(now(), INTERVAL 30 DAY), 1, now(), #{userIdFk})")
     @Options(useGeneratedKeys = true, keyProperty = "accessSecurityId", keyColumn = "access_security_id")
     int createAccess(AccessSecurity security);
 
@@ -30,12 +30,14 @@ public interface AccessSecurityMapper {
             @Result(property = "finalDate", column = "final_date"),
             @Result(property = "state", column = "state"),
             @Result(property = "creationDate", column = "creation_date"),
+            @Result(property = "userIdFk", column = "user_id_fk"),
             @Result(property = "updateDate", column = "update_date")
     })
     @Select("<script> select access_security_id, password, start_date, final_date, state, creation_date, update_date " +
             "from access_security a " +
-            "where a.state=1 <if test=\"accessSecurityId != null\">and access_security_id=#{accessSecurityId}</if> </script>")
-    AccessSecurity getAccess(AccessSecurity security);
+            "where a.state=1 <if test=\"accessSecurityId != null\">and access_security_id=#{accessSecurityId}</if>" +
+            "<if test=\"userIdFk != null\">and user_id_fk=#{userIdFk}</if> </script>")
+    AccessSecurity getAccessSecurity(AccessSecurity security);
 
     @Results({
             @Result(property = "accessSecurityId", column = "access_security_id"),

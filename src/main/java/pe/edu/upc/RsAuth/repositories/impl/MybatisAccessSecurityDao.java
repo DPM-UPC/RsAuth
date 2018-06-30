@@ -29,7 +29,7 @@ public class MybatisAccessSecurityDao implements AccessSecurityDao {
 
     @Override
     public AccessSecurity getAccess(AccessSecurity security) throws Exception {
-        return accessSecurityMapper.getAccess(security);
+        return accessSecurityMapper.getAccessSecurity(security);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package pe.edu.upc.RsAuth.domains;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,13 @@ public class User {
     private List<AccessSecurity> accessSecurities;
 
     private String userPassword;
+
+    public User() {
+    }
+
+    public User(Integer userId) {
+        this.userId = userId;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -75,6 +83,7 @@ public class User {
     }
 
     public List<AccessSecurity> getAccessSecurities() {
+        if (accessSecurities == null) accessSecurities = new ArrayList<>();
         return accessSecurities;
     }
 

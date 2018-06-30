@@ -9,11 +9,20 @@ import java.util.Date;
 public class AccessSecurity {
     private Integer accessSecurityId;
     private String password;
-    private Date starDate;
+    private Date startDate;
     private Date finalDate;
     private Integer state;
     private Date creationDate;
     private Date updateDate;
+
+    private Integer userIdFk;
+
+    public AccessSecurity() {
+    }
+
+    public AccessSecurity(Integer userIdFk) {
+        this.userIdFk = userIdFk;
+    }
 
     public Integer getAccessSecurityId() {
         return accessSecurityId;
@@ -31,12 +40,12 @@ public class AccessSecurity {
         this.password = password;
     }
 
-    public Date getStarDate() {
-        return starDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setStarDate(Date starDate) {
-        this.starDate = starDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Date getFinalDate() {
@@ -71,16 +80,25 @@ public class AccessSecurity {
         this.updateDate = updateDate;
     }
 
+    public Integer getUserIdFk() {
+        return userIdFk;
+    }
+
+    public void setUserIdFk(Integer userIdFk) {
+        this.userIdFk = userIdFk;
+    }
+
     @Override
     public String toString() {
         return "AccessSecurity{" +
                 "accessSecurityId=" + accessSecurityId +
                 ", password='" + password + '\'' +
-                ", starDate=" + starDate +
+                ", startDate=" + startDate +
                 ", finalDate=" + finalDate +
                 ", state=" + state +
                 ", creationDate=" + creationDate +
                 ", updateDate=" + updateDate +
+                ", userIdFk=" + userIdFk +
                 '}';
     }
 }

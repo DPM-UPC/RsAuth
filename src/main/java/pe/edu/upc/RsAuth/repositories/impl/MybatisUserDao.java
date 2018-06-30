@@ -9,7 +9,7 @@ import pe.edu.upc.RsAuth.repositories.UserDao;
 import java.util.List;
 
 /**
- * Created by Paolo Ortega  on 4/06/2018.
+ * Created by Paolo Ortega on 25/06/2018.
  */
 @Repository
 public class MybatisUserDao implements UserDao {

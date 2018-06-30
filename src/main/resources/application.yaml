@@ -16,6 +16,12 @@ datasource:
   username: root
   password: root
   maximumPoolSize: 5
+auth-security:
+  token:
+    secretCode: "SecretKeyToGenJWTs"
+    expirationTime: 100_000
+    tokenPrefix: "Bearer "
+    requestString: "Authorization"
 server:
   port: 8081
   servlet:
@@ -34,4 +40,10 @@ datasource:
   username: admin_auth
   password: dpm-upc.2018
   maximumPoolSize: 5
+auth-security:
+  token:
+    secretCode: "SecretKeyToGenJWTs"
+    expirationTime: 100_000
+    tokenPrefix: "Bearer "
+    requestString: "Authorization"
 banner: banner.txt

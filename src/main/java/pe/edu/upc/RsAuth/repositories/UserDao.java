@@ -6,7 +6,7 @@ import pe.edu.upc.RsAuth.domains.User;
 import java.util.List;
 
 /**
- * Created by Paolo Ortega on 4/02/2018.
+ * Created by Paolo Ortega on 25/06/2018.
  */
 public interface UserDao {
     int createUser(User user) throws Exception;
