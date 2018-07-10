@@ -1,7 +1,7 @@
 package pe.edu.upc.RsAuth.repositories;
 
 
-import pe.edu.upc.RsAuth.domains.User;
+import pe.edu.upc.RsAuth.models.User;
 
 import java.util.List;
 

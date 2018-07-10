@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import pe.edu.upc.RsAuth.domains.AccessToken;
+import pe.edu.upc.RsAuth.models.AccessToken;
 
 import java.util.Date;
 

@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pe.edu.upc.RsAuth.domains.AccessSecurity;
-import pe.edu.upc.RsAuth.domains.User;
 import pe.edu.upc.RsAuth.exception.ResourceException;
+import pe.edu.upc.RsAuth.models.AccessSecurity;
+import pe.edu.upc.RsAuth.models.User;
+import pe.edu.upc.RsAuth.models.UserBusiness;
 import pe.edu.upc.RsAuth.repositories.AccessSecurityDao;
+import pe.edu.upc.RsAuth.repositories.UserBusinessDao;
 import pe.edu.upc.RsAuth.repositories.UserDao;
 
 import java.util.List;
@@ -24,6 +26,9 @@ public class UserService {
 
     @Autowired
     AccessSecurityDao accessSecurityDao;
+
+    @Autowired
+    UserBusinessDao userBusinessDao;
 
     @Autowired
     UserDao userDao;
@@ -52,14 +57,24 @@ public class UserService {
     public User getUser(User user) throws Exception {
         LOGGER.debug("getUser, user: {}", user);
         User newUser = userDao.getUser(user);
+        if (newUser == null) return null;
         AccessSecurity accessSecurity = accessSecurityDao.getAccess(new AccessSecurity(newUser.getUserId()));
         newUser.getAccessSecurities().add(accessSecurity);
+        List<UserBusiness> userBusinesses = userBusinessDao.listUserBusiness(user);
+        newUser.setUserBusinesses(userBusinesses);
         return newUser;
     }
 
     public List<User> listUser(User user) throws Exception {
         LOGGER.debug("listUser, user: {}", user);
-        return userDao.listUser(user);
+        List<User> userList = userDao.listUser(user);
+        for (User user1 : userList) {
+            AccessSecurity accessSecurity = accessSecurityDao.getAccess(new AccessSecurity(user1.getUserId()));
+            user1.getAccessSecurities().add(accessSecurity);
+            List<UserBusiness> userBusinesses = userBusinessDao.listUserBusiness(user1);
+            user1.setUserBusinesses(userBusinesses);
+        }
+        return userList;
     }
 
     public void deleteUser(User user) throws Exception {

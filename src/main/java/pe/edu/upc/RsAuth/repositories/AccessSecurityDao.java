@@ -1,6 +1,6 @@
 package pe.edu.upc.RsAuth.repositories;
 
-import pe.edu.upc.RsAuth.domains.AccessSecurity;
+import pe.edu.upc.RsAuth.models.AccessSecurity;
 
 import java.util.List;
 

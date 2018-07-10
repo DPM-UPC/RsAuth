@@ -1,17 +1,15 @@
 package pe.edu.upc.RsAuth.controllers;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import pe.edu.upc.RsAuth.domains.User;
+import pe.edu.upc.RsAuth.models.User;
 
-@RestController
-@RequestMapping(value = "/authorization")
+//@RestController
+//@Api(value="users", description="Operation pertaining to management of users")
+//@RequestMapping(value = "/authorizations")
 public class AuthorizationController {
 
-    @GetMapping
+    //@GetMapping
     public ResponseEntity<User> getRefreshToken(@RequestParam(value = "accessToken") String accessToken) {
         // TODO: envia el token para obtener un refresh token
         return null;

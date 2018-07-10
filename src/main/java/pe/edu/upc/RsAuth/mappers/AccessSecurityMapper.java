@@ -2,7 +2,7 @@ package pe.edu.upc.RsAuth.mappers;
 
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
-import pe.edu.upc.RsAuth.domains.AccessSecurity;
+import pe.edu.upc.RsAuth.models.AccessSecurity;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public interface AccessSecurityMapper {
             @Result(property = "userIdFk", column = "user_id_fk"),
             @Result(property = "updateDate", column = "update_date")
     })
-    @Select("<script> select access_security_id, password, start_date, final_date, state, creation_date, update_date " +
+    @Select("<script> select access_security_id, password, start_date, final_date, state, creation_date, update_date, user_id_fk " +
             "from access_security a " +
             "where a.state=1 <if test=\"accessSecurityId != null\">and access_security_id=#{accessSecurityId}</if>" +
             "<if test=\"userIdFk != null\">and user_id_fk=#{userIdFk}</if> </script>")
@@ -46,9 +46,10 @@ public interface AccessSecurityMapper {
             @Result(property = "finalDate", column = "final_date"),
             @Result(property = "state", column = "state"),
             @Result(property = "creationDate", column = "creation_date"),
+            @Result(property = "userIdFk", column = "user_id_fk"),
             @Result(property = "updateDate", column = "update_date")
     })
-    @Select("select access_security_id, password, start_date, final_date, state, creation_date, update_date " +
+    @Select("select access_security_id, password, start_date, final_date, state, creation_date, update_date, user_id_fk " +
             "from access_security a " +
             "where a.state=1")
     List<AccessSecurity> listAccess(AccessSecurity security);

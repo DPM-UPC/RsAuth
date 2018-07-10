@@ -12,7 +12,7 @@ name: dev-YAML
 environment: dev
 datasource:
   driver-class-name: com.mysql.jdbc.Driver
-  jdbcUrl: jdbc:mysql://localhost:3306/dbappmobile?useSSL=false
+  jdbcUrl: jdbc:mysql://localhost:3306/dbappfinance?useSSL=false
   username: root
   password: root
   maximumPoolSize: 5

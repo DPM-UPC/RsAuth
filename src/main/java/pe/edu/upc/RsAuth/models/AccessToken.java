@@ -1,9 +1,13 @@
-package pe.edu.upc.RsAuth.domains;
+package pe.edu.upc.RsAuth.models;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
 public class AccessToken {
+    @JsonProperty(value = "token")
     private String token;
+    @JsonProperty(value = "expiration")
     private Date expiration;
 
     public AccessToken() {

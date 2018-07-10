@@ -1,26 +1,32 @@
 package pe.edu.upc.RsAuth.controllers;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.edu.upc.RsAuth.domains.User;
+import pe.edu.upc.RsAuth.models.User;
 import pe.edu.upc.RsAuth.services.UserService;
 
 import static org.springframework.http.HttpStatus.*;
 
 @RestController
-@RequestMapping(value = "/user")
+@Api(value = "users", description = "Operations pertaining to management of users", tags = {"Users"})
+@RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
 
-    private static final Logger LOGGER = LogManager.getLogger(AccessTokenController.class);
+    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
     @Autowired
     UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    @ApiOperation(value = "Create new users", response = User.class)
+    public ResponseEntity<User> createUser(@ApiParam(value = "User body, containing all the information of the new user", required = true) @RequestBody User user) {
         LOGGER.info("createUser(), user: " + user);
         User userResult;
         try {
@@ -33,7 +39,8 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
+    @ApiOperation(value = "Update users", response = User.class)
+    public ResponseEntity<User> updateUser(@ApiParam(value = "User body, containing attributes of user that must to update", required = true) @RequestBody User user) {
         LOGGER.info("updateUser(), user: " + user);
         User userResult;
         try {
@@ -46,7 +53,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{user_id:^[0-9]*$}")
-    public ResponseEntity deleteUser(@PathVariable("user_id") Integer userId) {
+    @ApiOperation(value = "Delete users")
+    public ResponseEntity deleteUser(@ApiParam(value = "The unique identifier of user", required = true) @PathVariable("user_id") Integer userId) {
         LOGGER.info("deleteUser(), userId: " + userId);
         try {
             userService.deleteUser(new User(userId));
@@ -58,7 +66,8 @@ public class UserController {
     }
 
     @GetMapping("/{user_id:^[0-9]*$}")
-    public ResponseEntity<User> getUserFrom(@PathVariable(value = "user_id", required = false) Integer userId) {
+    @ApiOperation(value = "Find a user by id", response = User.class)
+    public ResponseEntity<User> getUserFrom(@ApiParam(value = "The unique identifier of user", required = true) @PathVariable(value = "user_id") Integer userId) {
         LOGGER.info("getUserFrom(), userId: {}: ", userId);
         User userResult;
         User userReq = new User();
@@ -74,8 +83,9 @@ public class UserController {
         else return ResponseEntity.ok().body(userResult);
     }
 
-    @GetMapping
-    public ResponseEntity<User> getUserFrom(@RequestParam(value = "user_name", required = false) String userName) {
+    @GetMapping("/access_securities/")
+    @ApiOperation(value = "Get user by name", response = User.class)
+    public ResponseEntity<User> getUserFrom(@ApiParam(value = "The name of user", required = true) @RequestParam(value = "user_name") String userName) {
         LOGGER.info("getUserFrom() userName: {}: ", userName);
         User userResult;
         User userReq = new User();

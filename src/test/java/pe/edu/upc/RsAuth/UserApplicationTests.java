@@ -7,9 +7,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import pe.edu.upc.RsAuth.domains.AccessSecurity;
-import pe.edu.upc.RsAuth.domains.Country;
-import pe.edu.upc.RsAuth.domains.User;
+import pe.edu.upc.RsAuth.models.AccessSecurity;
+import pe.edu.upc.RsAuth.models.Country;
+import pe.edu.upc.RsAuth.models.User;
 import pe.edu.upc.RsAuth.services.UserService;
 
 @RunWith(SpringRunner.class)
@@ -31,9 +31,9 @@ public class UserApplicationTests {
         AccessSecurity accessSecurity = new AccessSecurity();
         Country country = new Country();
 
-        user.setUserName("paolo29");
-        user.setEmail("paolosp29@gmail.com");
-        accessSecurity.setPassword("admin");
+        user.setUserName("paolo");
+        user.setEmail("paolo@gmail.com");
+        accessSecurity.setPassword("admin2");
         country.setCountryId(1);//Peru
 
         user.getAccessSecurities().add(accessSecurity);
@@ -56,7 +56,7 @@ public class UserApplicationTests {
         User user = new User();
 
         //user.setUserId(1);
-        user.setUserName("paolo29");
+        user.setUserName("paolo");
 
         LOGGER.info(userService.getUser(user));
     }

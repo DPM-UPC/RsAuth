@@ -1,4 +1,6 @@
-package pe.edu.upc.RsAuth.domains;
+package pe.edu.upc.RsAuth.models;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,15 +10,26 @@ import java.util.List;
  * Created by Paolo Ortega on 23/06/2018.
  */
 public class User {
+    @JsonProperty(value = "user_id")
     private Integer userId;
+    @JsonProperty(value = "user_name")
     private String userName;
+    @JsonProperty(value = "email")
     private String email;
+    @JsonProperty(value = "state")
     private String state;
+    @JsonProperty(value = "creation_date")
     private Date creationDate;
+    @JsonProperty(value = "update_date")
     private Date updateDate;
+    @JsonProperty(value = "country")
     private Country country;
+    @JsonProperty(value = "access_securities")
     private List<AccessSecurity> accessSecurities;
+    @JsonProperty(value = "user_businesses")
+    private List<UserBusiness> userBusinesses;
 
+    @JsonProperty(value = "user_password")
     private String userPassword;
 
     public User() {
@@ -97,6 +110,14 @@ public class User {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public List<UserBusiness> getUserBusinesses() {
+        return userBusinesses;
+    }
+
+    public void setUserBusinesses(List<UserBusiness> userBusinesses) {
+        this.userBusinesses = userBusinesses;
     }
 
     @Override

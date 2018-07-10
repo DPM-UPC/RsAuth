@@ -1,4 +1,6 @@
-package pe.edu.upc.RsAuth.domains;
+package pe.edu.upc.RsAuth.models;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 
@@ -7,14 +9,22 @@ import java.util.Date;
  * Created by Paolo Ortega on 23/06/2018.
  */
 public class AccessSecurity {
+    @JsonProperty(value = "access_security_id")
     private Integer accessSecurityId;
+    @JsonProperty(value = "password")
     private String password;
+    @JsonProperty(value = "start_date")
     private Date startDate;
+    @JsonProperty(value = "final_date")
     private Date finalDate;
+    @JsonProperty(value = "state")
     private Integer state;
+    @JsonProperty(value = "creation_date")
     private Date creationDate;
+    @JsonProperty(value = "update_date")
     private Date updateDate;
 
+    @JsonProperty(value = "user_id_fk")
     private Integer userIdFk;
 
     public AccessSecurity() {

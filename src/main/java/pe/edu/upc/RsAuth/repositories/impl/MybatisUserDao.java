@@ -2,8 +2,8 @@ package pe.edu.upc.RsAuth.repositories.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import pe.edu.upc.RsAuth.domains.User;
 import pe.edu.upc.RsAuth.mappers.UserMapper;
+import pe.edu.upc.RsAuth.models.User;
 import pe.edu.upc.RsAuth.repositories.UserDao;
 
 import java.util.List;
