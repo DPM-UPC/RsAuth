@@ -27,7 +27,6 @@ public class RsAuthApplicationTests {
     public void accessTokenTest() throws Exception {
 
         User user = new User();
-        user.setUserName("paolo29");
         user.setUserPassword("admin");
 
         LOGGER.info(accessTokenService.getAuthToken(user));

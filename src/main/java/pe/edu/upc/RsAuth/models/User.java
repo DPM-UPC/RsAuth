@@ -12,8 +12,6 @@ import java.util.List;
 public class User {
     @JsonProperty(value = "user_id")
     private Integer userId;
-    @JsonProperty(value = "user_name")
-    private String userName;
     @JsonProperty(value = "email")
     private String email;
     @JsonProperty(value = "state")
@@ -32,6 +30,9 @@ public class User {
     @JsonProperty(value = "user_password")
     private String userPassword;
 
+    @JsonProperty(value = "token")
+    private String token;
+
     public User() {
     }
 
@@ -45,14 +46,6 @@ public class User {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getEmail() {
@@ -120,18 +113,13 @@ public class User {
         this.userBusinesses = userBusinesses;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", email='" + email + '\'' +
-                ", state='" + state + '\'' +
-                ", creationDate=" + creationDate +
-                ", updateDate=" + updateDate +
-                ", country=" + country +
-                ", accessSecurities=" + accessSecurities +
-                ", userPassword='" + userPassword + '\'' +
-                '}';
+    public String getToken() {
+        return token;
     }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+
 }

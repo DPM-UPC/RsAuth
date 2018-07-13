@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.upc.RsAuth.exception.ResourceException;
 import pe.edu.upc.RsAuth.models.User;
 import pe.edu.upc.RsAuth.services.UserService;
 
@@ -31,6 +32,9 @@ public class UserController {
         User userResult;
         try {
             userResult = userService.createUser(user);
+        } catch (ResourceException e) {
+            LOGGER.error("error recurso detectado: ", e);
+            return ResponseEntity.status(e.getHttpStatus()).body(null);
         } catch (Exception e) {
             LOGGER.error("", e);
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(null);
@@ -45,6 +49,9 @@ public class UserController {
         User userResult;
         try {
             userResult = userService.updateUser(user);
+        } catch (ResourceException e) {
+            LOGGER.error("error recurso detectado: ", e);
+            return ResponseEntity.status(e.getHttpStatus()).body(null);
         } catch (Exception e) {
             LOGGER.error("", e);
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(null);
@@ -58,6 +65,9 @@ public class UserController {
         LOGGER.info("deleteUser(), userId: " + userId);
         try {
             userService.deleteUser(new User(userId));
+        } catch (ResourceException e) {
+            LOGGER.error("error recurso detectado: ", e);
+            return ResponseEntity.status(e.getHttpStatus()).body(null);
         } catch (Exception e) {
             LOGGER.error("", e);
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(null);
@@ -75,6 +85,9 @@ public class UserController {
         try {
             userResult = userService.getUser(userReq);
             LOGGER.info("userResult: " + userResult);
+        } catch (ResourceException e) {
+            LOGGER.error("error recurso detectado: ", e);
+            return ResponseEntity.status(e.getHttpStatus()).body(null);
         } catch (Exception e) {
             LOGGER.error("", e);
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(null);
@@ -84,15 +97,18 @@ public class UserController {
     }
 
     @GetMapping("/access_securities/")
-    @ApiOperation(value = "Get user by name", response = User.class)
-    public ResponseEntity<User> getUserFrom(@ApiParam(value = "The name of user", required = true) @RequestParam(value = "user_name") String userName) {
-        LOGGER.info("getUserFrom() userName: {}: ", userName);
+    @ApiOperation(value = "Get user by email", response = User.class)
+    public ResponseEntity<User> getUserFrom(@ApiParam(value = "The email of user", required = true) @RequestParam(value = "email") String email) {
+        LOGGER.info("getUserFrom() email: {}: ", email);
         User userResult;
         User userReq = new User();
-        userReq.setUserName(userName);
+        userReq.setEmail(email);
         try {
             userResult = userService.getUser(userReq);
             LOGGER.info("userResult: " + userResult);
+        } catch (ResourceException e) {
+            LOGGER.error("error recurso detectado: ", e);
+            return ResponseEntity.status(e.getHttpStatus()).body(null);
         } catch (Exception e) {
             LOGGER.error("", e);
             return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(null);

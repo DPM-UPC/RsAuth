@@ -26,7 +26,7 @@ public class AccessTokenService {
         if (!validateRequest(user) || !user.getUserPassword().equals(userReq.getUserPassword())) {
             throw new ResourceException(HttpStatus.UNAUTHORIZED, "Login incorrecto");
         }
-        AccessToken accessToken = JwtUtil.getAccessToken(user.getUserName());
+        AccessToken accessToken = JwtUtil.getAccessToken(user.getUserId());
         LOGGER.info("token generado: {}", accessToken);
         return accessToken;
     }
@@ -34,7 +34,7 @@ public class AccessTokenService {
     private boolean validateRequest(User user) {
         boolean result = false;
         if (user != null)
-            if (user.getUserName() != null && !user.getUserName().isEmpty())
+            if (user.getEmail() != null && !user.getEmail().isEmpty())
                 if (user.getUserPassword() != null && !user.getUserPassword().isEmpty())
                     result = true;
 

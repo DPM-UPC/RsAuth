@@ -24,13 +24,13 @@ public class JwtUtil {
     private static String REQUEST_STRING;
 
     // Método para crear el JWT y enviarlo al cliente en el header de la respuesta
-    public static AccessToken getAccessToken(String username) {
-        LOGGER.info("generando token a partir del user: {}", username);
+    public static AccessToken getAccessToken(Integer userId) {
+        LOGGER.info("generando token a partir del user: {}", userId);
 
         LOGGER.debug("expiracion del token: {} segs = {} min = {} horas", EXPIRATION_TIME / 1000, EXPIRATION_TIME / 1000 / 60, EXPIRATION_TIME / 1000 / 3600);
         Date expirationDate = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
         String token = Jwts.builder()
-                .setSubject(username)
+                .setSubject(userId.toString())
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
                 .compact();
@@ -38,7 +38,7 @@ public class JwtUtil {
 
         //agregamos al encabezado el token
         //res.setHeader(REQUEST_STRING, TOKEN_PREFIX + " " + token);
-        return new AccessToken(token, expirationDate);
+        return new AccessToken(token, expirationDate, userId);
     }
 
     // Método para validar el token enviado por el cliente

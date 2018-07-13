@@ -22,4 +22,9 @@ public class MybatisUserBusinessDao implements UserBusinessDao {
     public List<UserBusiness> listUserBusiness(User user) throws Exception {
         return userBusinessMapper.listUserBusiness(user);
     }
+
+    @Override
+    public int createUserBusiness(UserBusiness userBusiness) throws Exception {
+        return userBusinessMapper.createUserBusiness(userBusiness);
+    }
 }

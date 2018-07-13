@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pe.edu.upc.RsAuth.exception.ResourceException;
 import pe.edu.upc.RsAuth.models.AccessSecurity;
+import pe.edu.upc.RsAuth.models.AccessToken;
 import pe.edu.upc.RsAuth.models.User;
 import pe.edu.upc.RsAuth.models.UserBusiness;
 import pe.edu.upc.RsAuth.repositories.AccessSecurityDao;
 import pe.edu.upc.RsAuth.repositories.UserBusinessDao;
 import pe.edu.upc.RsAuth.repositories.UserDao;
+import pe.edu.upc.RsAuth.utils.JwtUtil;
 
 import java.util.List;
 
@@ -42,8 +44,20 @@ public class UserService {
         userDao.createUser(user);
         LOGGER.debug("userId obtenido: " + user.getUserId());
         user.getAccessSecurities().get(0).setUserIdFk(user.getUserId());
+        //creando acceso
         accessSecurityDao.createAccess(user.getAccessSecurities().get(0));
-        return getUser(new User(user.getUserId()));
+        //creando token
+        AccessToken accessToken = JwtUtil.getAccessToken(user.getUserId());
+        //creando userBusiness
+        UserBusiness userBusiness = new UserBusiness();
+        userBusiness.setUserIdFk(user.getUserId());
+        userBusiness.setBusinessIdFk(user.getUserBusinesses().get(0).getUserBusinessId());
+        userBusinessDao.createUserBusiness(userBusiness);
+
+        //se obtiene el usuario completo
+        User newUser = getUser(new User(user.getUserId()));
+        newUser.setToken(accessToken.getToken());
+        return newUser;
     }
 
     public User updateUser(User user) throws Exception {
@@ -87,7 +101,6 @@ public class UserService {
     public static boolean validateCreateRequest(User user) {
         boolean result = false;
         if (user != null)
-            if (user.getUserName() != null && !user.getUserName().isEmpty())
                 if (user.getEmail() != null && !user.getEmail().isEmpty())
                     if (user.getAccessSecurities() != null && user.getAccessSecurities().size() == 1)
                         if (user.getAccessSecurities().get(0) != null && user.getAccessSecurities().get(0).getPassword() != null && !user.getAccessSecurities().get(0).getPassword().isEmpty())
@@ -100,7 +113,6 @@ public class UserService {
     public static boolean validateUpdateRequest(User user) {
         boolean result = false;
         if (user != null)
-            if (user.getUserName() != null && !user.getUserName().isEmpty())
                 if (user.getEmail() != null && !user.getEmail().isEmpty())
                     result = true;
 

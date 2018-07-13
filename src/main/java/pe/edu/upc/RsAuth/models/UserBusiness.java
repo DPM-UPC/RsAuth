@@ -7,8 +7,6 @@ import java.util.Date;
 public class UserBusiness {
     @JsonProperty(value = "user_business_id")
     private Integer userBusinessId;
-    @JsonProperty(value = "business_description")
-    private String businessDescription;
     @JsonProperty(value = "state")
     private Integer state;
     @JsonProperty(value = "creation_date")
@@ -28,14 +26,6 @@ public class UserBusiness {
 
     public void setUserBusinessId(Integer userBusinessId) {
         this.userBusinessId = userBusinessId;
-    }
-
-    public String getBusinessDescription() {
-        return businessDescription;
-    }
-
-    public void setBusinessDescription(String businessDescription) {
-        this.businessDescription = businessDescription;
     }
 
     public Integer getState() {
@@ -90,7 +80,6 @@ public class UserBusiness {
     public String toString() {
         return "UserBusiness{" +
                 "userBusinessId=" + userBusinessId +
-                ", businessDescription='" + businessDescription + '\'' +
                 ", state=" + state +
                 ", creationDate=" + creationDate +
                 ", updateDate=" + updateDate +

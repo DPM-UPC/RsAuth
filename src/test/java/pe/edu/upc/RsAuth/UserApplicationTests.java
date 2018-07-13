@@ -31,7 +31,6 @@ public class UserApplicationTests {
         AccessSecurity accessSecurity = new AccessSecurity();
         Country country = new Country();
 
-        user.setUserName("paolo");
         user.setEmail("paolo@gmail.com");
         accessSecurity.setPassword("admin2");
         country.setCountryId(1);//Peru
@@ -56,7 +55,7 @@ public class UserApplicationTests {
         User user = new User();
 
         //user.setUserId(1);
-        user.setUserName("paolo");
+        user.setEmail("paolo");
 
         LOGGER.info(userService.getUser(user));
     }
