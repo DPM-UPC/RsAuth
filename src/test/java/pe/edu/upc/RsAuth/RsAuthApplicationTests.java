@@ -23,7 +23,7 @@ public class RsAuthApplicationTests {
     public void contextLoads() {
     }
 
-    @Test
+    //@Test
     public void accessTokenTest() throws Exception {
 
         User user = new User();
