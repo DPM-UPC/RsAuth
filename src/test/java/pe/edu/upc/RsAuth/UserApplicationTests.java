@@ -25,7 +25,7 @@ public class UserApplicationTests {
     public void contextLoads() {
     }
 
-    @Test
+    //@Test
     public void userCreationTest() throws Exception {
         User user = new User();
         AccessSecurity accessSecurity = new AccessSecurity();
@@ -40,7 +40,7 @@ public class UserApplicationTests {
         LOGGER.info(userService.createUser(user));
     }
 
-    @Test
+    //@Test
     public void userUpdateTest() throws Exception {
         User user = new User();
 
@@ -50,7 +50,7 @@ public class UserApplicationTests {
         LOGGER.info(userService.updateUser(user));
     }
 
-    @Test
+    //@Test
     public void userGetTest() throws Exception {
         User user = new User();
 
@@ -60,14 +60,14 @@ public class UserApplicationTests {
         LOGGER.info(userService.getUser(user));
     }
 
-    @Test
+    //@Test
     public void userListTest() throws Exception {
         User user = new User();
 
         LOGGER.info(userService.listUser(user));
     }
 
-    @Test
+    //@Test
     public void userDeleteTest() throws Exception {
         User user = new User();
 
