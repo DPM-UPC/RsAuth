@@ -5,9 +5,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import pe.edu.upc.RsAuth.models.AccessToken;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.Date;
 
 /**
@@ -22,6 +26,7 @@ public class JwtUtil {
     private static long EXPIRATION_TIME;
     private static String TOKEN_PREFIX;
     private static String REQUEST_STRING;
+    static final String HEADER_STRING = "Authorization";
 
     // Método para crear el JWT y enviarlo al cliente en el header de la respuesta
     public static AccessToken getAccessToken(Integer userId) {
@@ -31,7 +36,7 @@ public class JwtUtil {
         Date expirationDate = new Date(System.currentTimeMillis() + EXPIRATION_TIME);
         String token = Jwts.builder()
                 .setSubject(userId.toString())
-                .setExpiration(expirationDate)
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SECRET.getBytes())
                 .compact();
         LOGGER.info("token: " + token);
@@ -41,29 +46,22 @@ public class JwtUtil {
         return new AccessToken(token, expirationDate, userId);
     }
 
-    // Método para validar el token enviado por el cliente
-    /*public static Authentication getAuthentication(HttpServletRequest request) {
-
-        // Obtenemos el token que viene en el encabezado de la peticion
-        String token = request.getHeader(REQUEST_STRING);
-
-        // si hay un token presente, entonces lo validamos
+    public static Authentication getAuthentication(HttpServletRequest request) {
+        String token = request.getHeader(HEADER_STRING);
         if (token != null) {
+            // parse the token.
             String user = Jwts.parser()
                     .setSigningKey(SECRET.getBytes())
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, "")) //este metodo es el que valida
                     .getBody()
                     .getSubject();
 
-            // Recordamos que para las demás peticiones que no sean /login
-            // no requerimos una autenticacion por username/password
-            // por este motivo podemos devolver un UsernamePasswordAuthenticationToken sin password
             return user != null ?
                     new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList()) :
                     null;
         }
         return null;
-    }*/
+    }
 
     @Value("${auth-security.token.secretCode}")
     public void setSECRET(String secret) {
