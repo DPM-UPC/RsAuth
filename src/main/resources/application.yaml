@@ -35,7 +35,11 @@ spring:
 name: test-YAML
 environment: test
 datasource:
-  jndi-name: jdbc/SmartDB
+  driver-class-name: com.mysql.jdbc.Driver
+  jdbcUrl: jdbc:mysql://mysql36516-test-server1.jl.serv.net.mx/dbappfinance?useSSL=false
+  username: user_smart
+  password: admin
+  maximumPoolSize: 5
 auth-security:
   token:
     secretCode: "SecretKeyToGenJWTs"
