@@ -35,7 +35,7 @@ datasource:
 auth-security:
   token:
     secretCode: "SecretKeyToGenJWTs"
-    expirationTime: 100_000
+    expirationTime: 3_600_000
     tokenPrefix: "Bearer "
     requestString: "Authorization"
 server:
